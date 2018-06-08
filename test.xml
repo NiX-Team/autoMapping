@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <packages>
+        <package>
+            <name>com.alibaba.jingxun.model</name>
+        </package>
+    </packages>
+    <model>
+        <clazz>com.alibaba.jingxun.test.Teacher</clazz>
+        <mapping>./teacher.xml</mapping>
+        <table>teacker</table>
+    </model>
+</config>
