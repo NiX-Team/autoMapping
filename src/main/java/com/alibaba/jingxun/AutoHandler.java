@@ -106,7 +106,7 @@ public class AutoHandler {
 
     private final String haveHeaderFtl = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n" +
-            "<mapper namespace=\"com.nix.cinema.dao.${oneself.table}Mapper\">\n" +
+            "<mapper namespace=\"namespace\">\n" +
             "    <resultMap id=\"BaseResultMap\" type=\"${oneself.type}\">\n" +
             "    <#list oneself.params as param>\n" +
             "    <#if param.property == \"id\" >\n" +
