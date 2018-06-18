@@ -6,8 +6,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-
-import java.io.File;
+import org.apache.maven.project.MavenProject;
 import java.util.Map;
 
 @Mojo(name = "auto-mapping")//目标名称，必须的
@@ -19,8 +18,6 @@ public class CountMojo extends AbstractMojo {
     private String name = "./auto-mapping.xml";
     @Parameter
     private String ftl = null;
-    @Parameter
-    public String path;
     public static String rootPath;
     /**
      * 目标执行的方法
@@ -30,9 +27,10 @@ public class CountMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         AutoHandler autoHandler = new AutoHandler(ConfigurationFileHandler.getConfiguraFile(name),ConfigurationFileHandler.configurationFileType,ftl);
-        rootPath = path;
+        rootPath = ((MavenProject)getPluginContext().get("project")).getFile().getParent();
         try {
            LogKit.info("rootPath:" + rootPath);
+           printMap(getPluginContext());
             autoHandler.start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,6 +38,17 @@ public class CountMojo extends AbstractMojo {
             throw new MojoExecutionException(e.getMessage());
         } finally {
 
+        }
+    }
+
+    private void printMap(Map map) {
+        for (Object key:map.keySet()) {
+            LogKit.info("key:" + key);
+            if (map.get(key) instanceof Map) {
+                printMap((Map) map.get(key));
+            } else {
+                LogKit.info("value:" + map.get(key));
+            }
         }
     }
 
